@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente</title>
+    <style>
+        body {
+            background-color: #EB5A16; /* Laranja Itaú */
+            color: white; /* Cor da fonte branca */
+            font-family: Arial, sans-serif; /* Fonte */
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1); /* Cor de fundo do formulário */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: white; /* Cor da fonte branca */
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="datetime-local"],
+        input[type="number"] {
+            width: calc(100% - 12px); /* Ajustar largura para prevenir quebra de linha */
+            padding: 6px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        button[type="submit"] {
+            background-color: #1A7F17; /* Verde Itaú para o botão */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #155E12; /* Mais escuro no hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Cadastro de Cliente</h1>
+    <form id="formCliente">
+      <label for="nomeCliente">Nome:</label>
+      <input type="text" id="nomeCliente" name="nomeCliente" required><br><br>
+      
+      <label for="cpfCnpj">CPF/CNPJ:</label>
+      <input type="text" id="cpfCnpj" name="cpfCnpj" required><br><br>
+      
+      <label for="login">Login:</label>
+      <input type="text" id="login" name="login" required><br><br>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br><br>
+      
+      <label for="dataNascimento">Data de Nascimento:</label>
+      <input type="datetime-local" id="dataNascimento" name="dataNascimento" required><br><br>
+      
+      <label for="estadoCivil">Estado Civil:</label>
+      <input type="text" id="estadoCivil" name="estadoCivil" required><br><br>
+      
+      <label for="nrDocumento">Número do Documento:</label>
+      <input type="text" id="nrDocumento" name="nrDocumento" required><br><br>
+      
+      <label for="naturalidade">Naturalidade:</label>
+      <input type="text" id="naturalidade" name="naturalidade" required><br><br>
+      
+      <label for="idNacionalidade">ID Nacionalidade:</label>
+      <input type="number" id="idNacionalidade" name="idNacionalidade" required><br><br>
+      
+      <label for="logradouro">Logradouro:</label>
+      <input type="text" id="logradouro" name="logradouro" required><br><br>
+      
+      <label for="nrEndereco">Número do Endereço:</label>
+      <input type="text" id="nrEndereco" name="nrEndereco" required><br><br>
+      
+      <label for="dddTel">DDD Telefone:</label>
+      <input type="text" id="dddTel" name="dddTel"><br><br>
+      
+      <label for="telefone">Telefone:</label>
+      <input type="text" id="telefone" name="telefone"><br><br>
+      
+      <label for="dddCel">DDD Celular:</label>
+      <input type="text" id="dddCel" name="dddCel"><br><br>
+      
+      <label for="celular">Celular:</label>
+      <input type="text" id="celular" name="celular"><br><br>
+      
+      <label for="bairro">Bairro:</label>
+      <input type="text" id="bairro" name="bairro" required><br><br>
+      
+      <label for="complemento">Complemento:</label>
+      <input type="text" id="complemento" name="complemento"><br><br>
+      
+      <label for="cidade">Cidade:</label>
+      <input type="text" id="cidade" name="cidade" required><br><br>
+      
+      <label for="estado">Estado:</label>
+      <input type="text" id="estado" name="estado" required><br><br>
+      
+      <label for="cep">CEP:</label>
+      <input type="text" id="cep" name="cep" required><br><br>
+      
+      <label for="nacao">Nacionalidade:</label>
+      <input type="text" id="nacao" name="nacao" required><br><br>
+      
+      <label for="profissao">Profissão:</label>
+      <input type="text" id="profissao" name="profissao" required><br><br>
+      
+      <label for="dataEmissaoDoc">Data de Emissão do Documento:</label>
+      <input type="datetime-local" id="dataEmissaoDoc" name="dataEmissaoDoc" required><br><br>
+      
+      <label for="estadoEmissor">Estado Emissor:</label>
+      <input type="text" id="estadoEmissor" name="estadoEmissor" required><br><br>
+      
+      <label for="dataCadastro">Data de Cadastro:</label>
+      <input type="datetime-local" id="dataCadastro" name="dataCadastro" required><br><br>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <script>
+      document.getElementById('formCliente').addEventListener('submit', async function(event) {
+          event.preventDefault();
+          const formData = new FormData(this);
+          
+          // Convertendo a data de nascimento para o formato desejado
+          const dataNascimento = formData.get('dataNascimento');
+          formData.set('dataNascimento', dataNascimento.slice(0, 10));
+  
+          // Convertendo a data de emissão do documento para o formato desejado
+          const dataEmissaoDoc = formData.get('dataEmissaoDoc');
+          formData.set('dataEmissaoDoc', dataEmissaoDoc.slice(0, 10));
+  
+          // Convertendo a data de cadastro para o formato desejado
+          const dataCadastro = formData.get('dataCadastro');
+          formData.set('dataCadastro', dataCadastro.slice(0, 10));
+  
+          const response = await fetch('http://127.0.0.1:5000/clientes', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(Object.fromEntries(formData))
+          });
+          const data = await response.json();
+          alert(data.message);
+          this.reset();
+      });
+  </script>  
+</body>
+</html>
