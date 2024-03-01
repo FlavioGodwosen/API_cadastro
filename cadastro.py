@@ -12,9 +12,10 @@ class Cliente(db.Model):
     cpfCnpj = db.Column(db.String(20), nullable=False, unique=True)
     login = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
-    dataNascimento = db.Column(db.DateTime, nullable=False)
+    dataNascimento = db.Column(db.Date, nullable=False)
     estadoCivil = db.Column(db.String(20), nullable=False)
     nrDocumento = db.Column(db.String(20), nullable=False)
+    dataEmissaoDoc = db.Column(db.Date, nullable=False)
     naturalidade = db.Column(db.String(100), nullable=False)
     idNacionalidade = db.Column(db.Integer, nullable=False)
     logradouro = db.Column(db.String(100), nullable=False)
@@ -30,9 +31,8 @@ class Cliente(db.Model):
     cep = db.Column(db.String(15), nullable=False)
     nacao = db.Column(db.String(50), nullable=False)
     profissao = db.Column(db.String(50), nullable=False)
-    dataEmissaoDoc = db.Column(db.DateTime, nullable=False)
     estadoEmissor = db.Column(db.String(50), nullable=False)
-    dataCadastro = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    dataCadastro = db.Column(db.Date, nullable=False)
 
     def __repr__(self):
         return f'Cliente {self.nomeCliente}'
@@ -45,11 +45,11 @@ def index():
 @app.route('/clientes', methods=['POST'])
 def cadastrar_cliente():
     data = request.json
-    data_nascimento = datetime.strptime(data['dataNascimento'], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d")
+    data_nascimento = datetime.strptime(data['dataNascimento'], "%Y-%m-%d")
     data['dataNascimento'] = data_nascimento
-    data_emissao_doc = datetime.strptime(data['dataEmissaoDoc'], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d")
+    data_emissao_doc = datetime.strptime(data['dataEmissaoDoc'], "%Y-%m-%d")
     data['dataEmissaoDoc'] = data_emissao_doc
-    data_cadastro = datetime.strptime(data['dataCadastro'], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d")
+    data_cadastro = datetime.strptime(data['dataCadastro'], "%Y-%m-%d")
     data['dataCadastro'] = data_cadastro
     novo_cliente = Cliente(**data)
     db.session.add(novo_cliente)
