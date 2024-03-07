@@ -49,6 +49,8 @@
         }
     </style>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <body>
     <h1>Cadastro de Cliente</h1>
     <form id="formCliente">
@@ -65,7 +67,7 @@
       <input type="email" id="email" name="email" required><br><br>
       
       <label for="dataNascimento">Data de Nascimento:</label>
-      <input type="date" id="dataNascimento" name="dataNascimento" required><br><br>
+      <input type="text" id="dataNascimento" name="dataNascimento" pattern="\d{2}/\d{2}/\d{4}" placeholder="dd/mm/aaaa" required><br><br>
       
       <label for="estadoCivil">Estado Civil:</label>
       <input type="text" id="estadoCivil" name="estadoCivil" required><br><br>
@@ -74,8 +76,8 @@
       <input type="text" id="nrDocumento" name="nrDocumento" required><br><br>
 
       <label for="dataEmissaoDoc">Data de Emissão do Documento:</label>
-      <input type="date" id="dataEmissaoDoc" name="dataEmissaoDoc" required><br><br>
-
+      <input type="text" id="dataEmissaoDoc" name="dataEmissaoDoc" pattern="\d{2}/\d{2}/\d{4}" placeholder="dd/mm/aaaa" required><br><br>
+      
       <label for="estadoEmissor">Estado Emissor:</label>
       <input type="text" id="estadoEmissor" name="estadoEmissor" required><br><br>
       
@@ -123,13 +125,23 @@
       
       <label for="profissao">Profissão:</label>
       <input type="text" id="profissao" name="profissao" required><br><br>
-      
+     
       <label for="dataCadastro">Data de Cadastro:</label>
-      <input type="date" id="dataCadastro" name="dataCadastro" required><br><br>
+      <input type="text" id="dataCadastro" name="dataCadastro" pattern="\d{2}/\d{2}/\d{4}" placeholder="dd/mm/aaaa" required><br><br>
+      
         <button type="submit">Cadastrar</button>
     </form>
 
     <script>
+      $(document).ready(function() {
+        $('#dataNascimento').mask('00/00/0000');
+      });
+      $(document).ready(function() {
+        $('#dataEmissaoDoc').mask('00/00/0000');
+      });
+      $(document).ready(function() {
+        $('#dataCadastro').mask('00/00/0000');
+      });
       document.getElementById('formCliente').addEventListener('submit', async function(event) {
           event.preventDefault();
           const formData = new FormData(this);

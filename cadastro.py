@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import Column, String, Date
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///clientes.db'
@@ -10,8 +12,8 @@ class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nomeCliente = db.Column(db.String(100), nullable=False)
     cpfCnpj = db.Column(db.String(20), nullable=False, unique=True)
-    login = db.Column(db.String(100), nullable=False, unique=True)
-    email = db.Column(db.String(100), nullable=False, unique=True)
+    login = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
     dataNascimento = db.Column(db.Date, nullable=False)
     estadoCivil = db.Column(db.String(20), nullable=False)
     nrDocumento = db.Column(db.String(20), nullable=False)
@@ -45,15 +47,17 @@ def index():
 @app.route('/clientes', methods=['POST'])
 def cadastrar_cliente():
     data = request.json
-    data_nascimento = datetime.strptime(data['dataNascimento'], "%Y-%m-%d")
+    data_nascimento = datetime.strptime(data['dataNascimento'], "%d/%m/%Y")
     data['dataNascimento'] = data_nascimento
-    data_emissao_doc = datetime.strptime(data['dataEmissaoDoc'], "%Y-%m-%d")
+    data_emissao_doc = datetime.strptime(data['dataEmissaoDoc'], "%d/%m/%Y")
     data['dataEmissaoDoc'] = data_emissao_doc
-    data_cadastro = datetime.strptime(data['dataCadastro'], "%Y-%m-%d")
+    data_cadastro = datetime.strptime(data['dataCadastro'], "%d/%m/%Y")
     data['dataCadastro'] = data_cadastro
     novo_cliente = Cliente(**data)
     db.session.add(novo_cliente)
     db.session.commit()
+    
+    
     return jsonify({'message': 'Cliente cadastrado com sucesso!'}), 201
 
 @app.route('/clientes', methods=['GET'])
