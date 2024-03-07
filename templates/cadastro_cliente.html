@@ -58,7 +58,7 @@
       <input type="text" id="nomeCliente" name="nomeCliente" required><br><br>
       
       <label for="cpfCnpj">CPF/CNPJ:</label>
-      <input type="text" id="cpfCnpj" name="cpfCnpj" required><br><br>
+      <input type="text" id="cpfCnpj" name="cpfCnpj" placeholder="" required><br><br>
       
       <label for="login">Login:</label>
       <input type="text" id="login" name="login" required><br><br>
@@ -133,6 +133,9 @@
     </form>
 
     <script>
+      $(document).ready(function() {
+            $('#cpfCnpj').mask('999.999.999-99');
+      });
       $(document).ready(function() {
         $('#dataNascimento').mask('00/00/0000');
       });
